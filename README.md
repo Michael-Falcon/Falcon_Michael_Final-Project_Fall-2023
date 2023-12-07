@@ -1,26 +1,26 @@
 # Fall2023_final_project
 
-Simple overview of use/purpose.
+For my project I plan to create a race car game in which you can drift and have to win a race
 
 ## Description
 
-An in-depth paragraph about your project and overview of use.
+In this game you will be able to drift but the goal of the game is to win a race agsitn other npc cars that can pick up weapons and kill you, but you can also pick up certain weapons and elimate the npc.  You will have a health bar. 
+
 
 ## Getting Started
 
 ### Dependencies
 
-* Describe any prerequisites, libraries, OS version, etc., needed before installing program.
-* ex. Windows 10
+* I have dowwnloaded pygame and createed a new respository in github
 
 ### Installing
 
-* How/where to download your program
-* Any modifications needed to be made to files/folders
+* 
+* My project can be foudn in github or in my files 
 
 ### Executing program
 
-* How to run the program
+* You can run the program by pressing the play button and use keys a,w,d and other ones to move your player 
 * Step-by-step bullets
 ```
 code blocks for commands
@@ -29,8 +29,9 @@ code blocks for commands
 ## Help
 
 Any advise for common problems or issues.
+restart you computer or close the game 
 ```
-command to run if program contains helper info
+command to run if program contains he
 ```
 
 ## Authors
