@@ -17,6 +17,8 @@ more specfic gaols:
     allow for backgroudn to move with user 
     
 '''
+#Second push test 
+#fragnraio
 
 # content from kids can code: http://kidscancode.org/blog/
 # content from classmates: Miguel, 
@@ -38,7 +40,7 @@ from sprites import *
 from math import floor
 import math
 
-
+# a;skjdfj;sakdf
 
 vec = pg.math.Vector2
 
