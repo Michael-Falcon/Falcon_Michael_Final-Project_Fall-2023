@@ -17,7 +17,7 @@ class Player(Sprite):
         # self.image.fill(GREEN)
         # use an image for player sprite...
         self.game = game
-        self.image = pg.image.load(os.path.join(img_folder, 'theBigBell.png')).convert()
+        self.image = pg.image.load(os.path.join(img_folder, 'mitsubishi2.png')).convert()
         self.image.set_colorkey(BLACK)
         self.rect = self.image.get_rect()
         self.rect.center = (0, 0)
