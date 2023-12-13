@@ -41,7 +41,7 @@ class Player(Sprite):
         
     def update(self):
         # CHECKING FOR COLLISION WITH MOBS HERE>>>>>
-        mhits = pg.sprite.spritecollide(self, self.game.all_mobs, False)
+        mhits = pg.sprite.spritecollide(self, self.game.all_mobs, True)
         if mhits: 
             self.score = 1
         self.acc = vec(0,PLAYER_GRAV)
