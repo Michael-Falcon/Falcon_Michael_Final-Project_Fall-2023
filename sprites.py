@@ -4,6 +4,7 @@ from pygame.sprite import Sprite
 from pygame.math import Vector2 as vec
 import os
 from settings import *
+from sprites import *
 
 # setup asset folders here - images sounds etc.
 game_folder = os.path.dirname(__file__)
@@ -28,9 +29,9 @@ class Player(Sprite):
     def controls(self):
         keys = pg.key.get_pressed()
         if keys[pg.K_a]:
-            self.acc.x = -5
+            self.acc.x = -10
         if keys[pg.K_d]:
-            self.acc.x = 5
+            self.acc.x = 10
         if keys[pg.K_SPACE]:
             self.jump()
     def jump(self):
@@ -78,8 +79,10 @@ class Platform(Sprite):
 class Mob(Sprite):
     def __init__(self, x, y, w, h, kind):
         Sprite.__init__(self)
-        self.image = pg.Surface((w, h))
-        self.image.fill(RED)
+        self.image = pg.image.load(os.path.join(img_folder, 'purple-car.png')).convert()
+        self.image.set_colorkey(BLACK)
+        '''self.image = pg.Surface((w, h))
+        self.image.fill(RED)'''
         self.rect = self.image.get_rect()
         self.rect.x = x
         self.rect.y = y
