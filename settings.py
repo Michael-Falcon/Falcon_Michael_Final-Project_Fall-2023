@@ -6,11 +6,41 @@
 # game settings 
 WIDTH = 1400
 HEIGHT = 900
+'''screen_size = WIDTH, HEIGHT
+
+# colors
+gray = (100, 100, 100)
+green = (76, 208, 56)
+red = (200, 0, 0)
+white = (255, 255, 255)
+yellow = (255, 232, 0)
+
+# road and marker sizes
+road_width = 300
+marker_width = 10
+marker_height = 50
+
+# lane coordinates
+left_lane = 150
+center_lane = 250
+right_lane = 350
+lanes = [left_lane, center_lane, right_lane]
+
+# road and edge markers
+road = (100, 0, road_width, HEIGHT)
+left_edge_marker = (95, 0, marker_width, HEIGHT)
+right_edge_marker = (395, 0, marker_width, HEIGHT)
+
+# for animating movement of the lane markers
+lane_marker_move_y = 0
+'''
 FPS = 30
+
+
 #sjfkgn
 # player settings
-PLAYER_JUMP = 30
-PLAYER_GRAV = 1.5
+PLAYER_JUMP = 20
+PLAYER_GRAV = 1.0
 PLAYER_FRIC = 0.2
 
 # define colors

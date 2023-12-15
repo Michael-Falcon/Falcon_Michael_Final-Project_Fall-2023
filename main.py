@@ -1,5 +1,5 @@
 #This file was created by Michael Falcon 
-#Sources: 
+#Sources: chat, (kids can code), 
 #Overview: explain what you want to create What is something you're passionate about or interested in?  How can you apply python and its many libraries towards that interest in your final project?
 
 #Include a main.py file with comments including project title and goals.
@@ -30,6 +30,7 @@ more specfic gaols:
 #Feature Goals 
 #make the mobs 
 # import libraries and modules
+from turtle import speed
 import pygame as pg
 from pygame.sprite import Sprite
 import random
@@ -58,15 +59,17 @@ class Game:
         pg.display.set_caption("My Game...")
         self.clock = pg.time.Clock()
         self.running = True
-    
+
     def new(self):
         # create a group for all sprites
+        self.background = pg.image.load(os.path.join(img_folder, 'track background resize.png')).convert()
+        self.background_rect = self.background.get_rect()
         self.score = 0
         self.all_sprites = pg.sprite.Group()
         self.all_platforms = pg.sprite.Group()
         self.all_mobs = pg.sprite.Group()
         self.all_raindrops = pg.sprite.Group()
-        
+
         # instantiate classes
         self.player = Player(self)
         # add instances to groups
@@ -77,43 +80,19 @@ class Game:
             plat = Platform(*p)
             self.all_sprites.add(plat)
             self.all_platforms.add(plat)
-        
-        '''for m in MONSTER_LIST:
-            mob = Mob(*m)
-            self.all_sprites.add(mob)
-            self.all_mobs.add(mob)
-        
-        self.run()'''
 
-        for m in range(0,12):
-            m = Mob(randint(0,WIDTH), randint(0,HEIGHT - 150), 25, 25, "move")
+        for m in range(0, 12):
+            m = Mob(randint(0, WIDTH), randint(0, HEIGHT - 150), 25, 25, "move")
             self.all_sprites.add(m)
             self.all_mobs.add(m)
 
-        for r in range(0, 15): 
-            r = Rain(randint(0,WIDTH), randint(0,HEIGHT), 5, 40, "acid")
+        for r in range(0, 15):
+            r = Rain(randint(0, WIDTH), randint(0, HEIGHT), 5, 40, "acid")
             self.all_sprites.add(r)
             self.all_raindrops.add(r)
 
         self.run()
-        
-       
-        
-        '''for m in range(0,5):
-            m = Mob(self, randint(0, WIDTH), randint(0, HEIGHT/2), 20, 20, "normal")
-            self.all_sprites.add(m)
-            self.all_mobs.add(m)
 
-        self.run()'''
-
-        
-
-        
-        
-        
-
-        
-    
     def run(self):
         self.playing = True
         while self.playing:
@@ -124,8 +103,6 @@ class Game:
 
     def update(self):
         self.all_sprites.update()
-    
-
 
         # this is what prevents the player from falling through the platform when falling down...
         if self.player.vel.y >= 0:
@@ -133,10 +110,9 @@ class Game:
             if hits:
                 self.player.pos.y = hits[0].rect.top
                 self.player.vel.y = 0
-                self.player.vel.x = hits[0].speed*1.5
+                self.player.vel.x = hits[0].speed * 1.5
 
-                    
-         # this prevents the player from jumping up through a platform
+        # this prevents the player from jumping up through a platform
         elif self.player.vel.y <= 0:
             hits = pg.sprite.spritecollide(self.player, self.all_platforms, False)
             if hits:
@@ -145,51 +121,63 @@ class Game:
                 print("ouch")
                 if self.player.rect.bottom >= hits[0].rect.top:
                     self.player.rect.top = hits[0].rect.bottom
-        elif self.player.vel.y <= 0: 
+        elif self.player.vel.y <= 0:
             mhits = pg.sprite.spritecollide(self.player, self.all_mobs, False)
             if mhits:
                 self.player.acc = 5
                 self.player.vel.y = 0
-                self.score += 1 
+                self.score += 1
                 if self.player.rect.bottom >= hits[0].rect.top + 1:
                     self.player.rect.top = hits[0].rect.bottom
-                    
 
     def events(self):
         for event in pg.event.get():
-        # check for closed window
+            # check for closed window
             if event.type == pg.QUIT:
                 if self.playing:
                     self.playing = False
                 self.running = False
-                
-    def draw(self):
-        ############ Draw ################
-        # draw the background screen
-        self.screen.fill(BLACK)
-        # draw all sprites
-        self.all_sprites.draw(self.screen)
-        self.draw_text("Score: " + str(self.score), 22, WHITE, WIDTH/2, HEIGHT/10)
-        # buffer - after drawing everything, flip display
-        pg.display.flip()
     
+
+    def draw(self):
+        
+        # Draw the background screen
+        self.screen.fill(BLACK)
+        self.screen.blit(self.background, self.background_rect)
+    
+        # Draw all sprites
+        self.all_sprites.draw(self.screen)
+        self.draw_text("Score: " + str(self.score), 22, WHITE, WIDTH / 2, HEIGHT / 10)
+        
+        
+        self.background_rect.y += self.player.vel.y
+        
+        # Reset background position if it goes beyond the screen
+        if self.background_rect.top > HEIGHT:
+            self.background_rect.y = 0
+        
+
+        # Buffer - after drawing everything, flip display
+        pg.display.flip()
+        
+
     def draw_text(self, text, size, color, x, y):
         font_name = pg.font.match_font('arial')
         font = pg.font.Font(font_name, size)
         text_surface = font.render(text, True, color)
         text_rect = text_surface.get_rect()
-        text_rect.midtop = (x,y)
+        text_rect.midtop = (x, y)
         self.screen.blit(text_surface, text_rect)
 
     def show_start_screen(self):
         pass
+
     def show_go_screen(self):
         pass
 
+# Instantiate and run the game
 g = Game()
 while g.running:
     g.new()
 
-
 pg.quit()
-
