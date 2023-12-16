@@ -38,7 +38,7 @@ class Player(Sprite):
         if keys[pg.K_SPACE]:
             self.jump()
         if keys[pg.K_w]:
-            self.acc.y = -1/10
+            self.acc.y = -1
         if keys[pg.K_s]:
             self.acc.y = 3
     def jump(self):

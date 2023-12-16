@@ -56,14 +56,14 @@ class Game:
         pg.init()
         pg.mixer.init()
         self.screen = pg.display.set_mode((WIDTH, HEIGHT))
-        pg.display.set_caption("My Game...")
+        pg.display.set_caption("Scrolling background")
         self.clock = pg.time.Clock()
         self.running = True
 
     def new(self):
         # create a group for all sprites
         self.background = pg.image.load(os.path.join(img_folder, 'track background resize.png')).convert()
-        self.background_rect = self.background.get_rect()
+        #self.background_rect = self.background.get_rect()
         self.score = 0
         self.all_sprites = pg.sprite.Group()
         self.all_platforms = pg.sprite.Group()
@@ -92,14 +92,28 @@ class Game:
             self.all_raindrops.add(r)
 
         self.run()
+        
 
-    def run(self):
+    '''def run(self):
         self.playing = True
         while self.playing:
             self.clock.tick(FPS)
             self.events()
             self.update()
-            self.draw()
+            self.draw()'''
+    def run(self):
+        self.playing = True
+        bg_scroll = 0
+        scroll_speed = 4
+
+        while self.playing:
+            self.clock.tick(FPS)
+            self.events()
+            self.update()
+            self.draw(bg_scroll)
+            bg_scroll -= scroll_speed
+            if abs(bg_scroll) > HEIGHT:
+                bg_scroll = 0
 
     def update(self):
         self.all_sprites.update()
@@ -137,28 +151,62 @@ class Game:
                 if self.playing:
                     self.playing = False
                 self.running = False
-    
 
-    def draw(self):
-        
+    def draw(self, bg_scroll):
         # Draw the background screen
         self.screen.fill(BLACK)
-        self.screen.blit(self.background, self.background_rect)
-    
+        self.screen.blit(self.background, (0, bg_scroll))
+
         # Draw all sprites
         self.all_sprites.draw(self.screen)
         self.draw_text("Score: " + str(self.score), 22, WHITE, WIDTH / 2, HEIGHT / 10)
-        
-        
-        self.background_rect.y += self.player.vel.y
-        
-        # Reset background position if it goes beyond the screen
-        if self.background_rect.top > HEIGHT:
-            self.background_rect.y = 0
-        
 
         # Buffer - after drawing everything, flip display
         pg.display.flip()
+    
+
+    '''def draw(self):
+        #game variables 
+        bg_scroll = 0 
+        scroll_speed = 4
+        
+
+        # Draw the background screen
+        self.screen.fill(BLACK)
+        self.screen.blit(self.background, (0,bg_scroll))
+        bg_scroll -= scroll_speed
+        if abs(bg_scroll) > 100:
+            bg_scroll = 0 
+
+
+
+         
+    
+        # Draw all sprites
+        self.all_sprites.draw(self.screen)
+        self.draw_text("Score: " + str(self.score), 22, WHITE, WIDTH / 2, HEIGHT / 10)'''
+        
+        
+    '''
+        self.background_rect.y += self.player.vel.y
+        self.background_rect.x += self.player.vel.x
+
+        # Center the player on the screen
+        self.screen_rect = self.screen.get_rect()
+        self.player.vel.x = self.screen_rect.x
+        self.player.vel.y = self.screen_rect.y
+        if self.screen_rect.top > HEIGHT:
+            self.screen_rect.top = self.player.vel.y
+
+        '''
+        # Reset background position if it goes beyond the screen
+    '''if self.background_rect.top > HEIGHT:
+            self.background_rect.y = 0'''
+        
+        
+
+        # Buffer - after drawing everything, flip display
+        #pg.display.flip()
         
 
     def draw_text(self, text, size, color, x, y):
