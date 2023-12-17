@@ -39,8 +39,8 @@ FPS = 30
 
 #sjfkgn
 # player settings
-PLAYER_JUMP = 20
-PLAYER_GRAV = 1.0
+PLAYER_JUMP = 10
+PLAYER_GRAV = 0.1
 PLAYER_FRIC = 0.2
 
 # define colors

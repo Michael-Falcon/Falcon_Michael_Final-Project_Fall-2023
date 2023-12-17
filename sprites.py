@@ -25,7 +25,7 @@ class Player(Sprite):
         self.image.set_colorkey(BLACK)
         self.rect = self.image.get_rect()
         self.rect.center = (0, 0)
-        self.pos = vec(WIDTH/2, HEIGHT/2)
+        self.pos = vec(WIDTH/2, 450)
         self.vel = vec(0,0)
         self.acc = vec(1,2)
         self.score = 0

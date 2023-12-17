@@ -30,6 +30,7 @@ more specfic gaols:
 #Feature Goals 
 #make the mobs 
 # import libraries and modules
+'''
 from turtle import speed
 import pygame as pg
 from pygame.sprite import Sprite
@@ -62,8 +63,8 @@ class Game:
 
     def new(self):
         # create a group for all sprites
-        self.background = pg.image.load(os.path.join(img_folder, 'track background resize.png')).convert()
-        #self.background_rect = self.background.get_rect()
+        self.background = pg.image.load(os.path.join(img_folder, 'Race-Track-PNG-Resize.png')).convert()
+        self.background_rect = self.background.get_rect()
         self.score = 0
         self.all_sprites = pg.sprite.Group()
         self.all_platforms = pg.sprite.Group()
@@ -92,28 +93,28 @@ class Game:
             self.all_raindrops.add(r)
 
         self.run()
-        
+       
 
-    '''def run(self):
+    #def run(self):
+        #self.playing = True
+        #while self.playing:
+            #self.clock.tick(FPS)
+            #self.events()
+            #self.update()
+            #self.draw()'''
+'''def run(self):
         self.playing = True
+        self.background_rect.top = 800
+        scroll_speed = 3
+
         while self.playing:
             self.clock.tick(FPS)
             self.events()
             self.update()
-            self.draw()'''
-    def run(self):
-        self.playing = True
-        bg_scroll = 0
-        scroll_speed = 4
-
-        while self.playing:
-            self.clock.tick(FPS)
-            self.events()
-            self.update()
-            self.draw(bg_scroll)
-            bg_scroll -= scroll_speed
-            if abs(bg_scroll) > HEIGHT:
-                bg_scroll = 0
+            self.draw(self.background_rect.top)
+            self.background_rect.top -= scroll_speed
+            if abs(self.background_rect.top) > 300 :
+                self.background_rect.top = 900
 
     def update(self):
         self.all_sprites.update()
@@ -164,8 +165,8 @@ class Game:
         # Buffer - after drawing everything, flip display
         pg.display.flip()
     
-
-    '''def draw(self):
+'''
+'''def draw(self):
         #game variables 
         bg_scroll = 0 
         scroll_speed = 4
@@ -187,7 +188,7 @@ class Game:
         self.draw_text("Score: " + str(self.score), 22, WHITE, WIDTH / 2, HEIGHT / 10)'''
         
         
-    '''
+'''
         self.background_rect.y += self.player.vel.y
         self.background_rect.x += self.player.vel.x
 
@@ -200,16 +201,16 @@ class Game:
 
         '''
         # Reset background position if it goes beyond the screen
-    '''if self.background_rect.top > HEIGHT:
+'''if self.background_rect.top > HEIGHT:
             self.background_rect.y = 0'''
         
         
 
         # Buffer - after drawing everything, flip display
         #pg.display.flip()
-        
 
-    def draw_text(self, text, size, color, x, y):
+
+'''def draw_text(self, text, size, color, x, y):
         font_name = pg.font.match_font('arial')
         font = pg.font.Font(font_name, size)
         text_surface = font.render(text, True, color)
@@ -222,6 +223,107 @@ class Game:
 
     def show_go_screen(self):
         pass
+
+# Instantiate and run the game
+g = Game()
+while g.running:
+    g.new()
+
+pg.quit()
+'''
+
+
+
+
+from turtle import speed
+import pygame as pg
+from pygame.sprite import Sprite
+import random
+from random import randint
+import os
+from settings import *
+from sprites import *
+from math import floor
+import math
+
+vec = pg.math.Vector2
+
+game_folder = os.path.dirname(__file__)
+img_folder = os.path.join(game_folder, 'images')
+
+class Game:
+    def __init__(self):
+        pg.init()
+        pg.mixer.init()
+        self.screen = pg.display.set_mode((WIDTH, HEIGHT))
+        pg.display.set_caption("Scrolling background")
+        self.clock = pg.time.Clock()
+        self.running = True
+
+    def new(self):
+        self.background = pg.image.load(os.path.join(img_folder, 'Race-Track-PNG-Resize.png')).convert()
+        self.score = 0
+        self.all_sprites = pg.sprite.Group()
+        self.all_platforms = pg.sprite.Group()
+        self.all_mobs = pg.sprite.Group()
+
+        self.player = Player(self)
+        self.all_sprites.add(self.player)
+
+        for p in PLATFORM_LIST:
+            plat = Platform(*p)
+            self.all_sprites.add(plat)
+            self.all_platforms.add(plat)
+
+        for m in range(0, 12):
+            m = Mob(randint(0, WIDTH), randint(0, HEIGHT - 150), 25, 25, "move")
+            self.all_sprites.add(m)
+            self.all_mobs.add(m)
+
+        self.run()
+
+    def run(self):
+        self.playing = True
+        bg_scroll = -800
+        scroll_speed = 3
+
+        while self.playing:
+            self.clock.tick(FPS)
+            self.events()
+            self.update()
+            self.draw(bg_scroll)
+            bg_scroll += scroll_speed
+            if bg_scroll > 0:
+                bg_scroll = -900
+
+    def update(self):
+        self.all_sprites.update()
+
+        # Add your collision detection code here
+
+    def events(self):
+        for event in pg.event.get():
+            if event.type == pg.QUIT:
+                if self.playing:
+                    self.playing = False
+                self.running = False
+
+    def draw(self, bg_scroll):
+        self.screen.fill(BLACK)
+        self.screen.blit(self.background, (0, -bg_scroll))
+
+        self.all_sprites.draw(self.screen)
+        self.draw_text("Score: " + str(self.score), 22, WHITE, WIDTH / 2, HEIGHT / 10)
+
+        pg.display.flip()
+
+    def draw_text(self, text, size, color, x, y):
+        font_name = pg.font.match_font('arial')
+        font = pg.font.Font(font_name, size)
+        text_surface = font.render(text, True, color)
+        text_rect = text_surface.get_rect()
+        text_rect.midtop = (x, y)
+        self.screen.blit(text_surface, text_rect)
 
 # Instantiate and run the game
 g = Game()
