@@ -32,15 +32,15 @@ class Player(Sprite):
     def controls(self):
         keys = pg.key.get_pressed()
         if keys[pg.K_a]:
-            self.acc.x = -10
+            self.acc.x = -9
         if keys[pg.K_d]:
-            self.acc.x = 10
+            self.acc.x = 9
         if keys[pg.K_SPACE]:
             self.jump()
         if keys[pg.K_w]:
-            self.acc.y = -1
+            self.acc.y = -.5
         if keys[pg.K_s]:
-            self.acc.y = 3
+            self.acc.y = 1
     def jump(self):
         hits = pg.sprite.spritecollide(self, self.game.all_platforms, False)
         if hits:

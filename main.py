@@ -285,7 +285,7 @@ class Game:
     def run(self):
         self.playing = True
         bg_scroll = -800
-        scroll_speed = 3
+        scroll_speed = 6
 
         while self.playing:
             self.clock.tick(FPS)
@@ -293,13 +293,37 @@ class Game:
             self.update()
             self.draw(bg_scroll)
             bg_scroll += scroll_speed
-            if bg_scroll > 0:
-                bg_scroll = -900
+            if bg_scroll > 50:
+                bg_scroll = -850
 
     def update(self):
         self.all_sprites.update()
 
-        # Add your collision detection code here
+        # this is what prevents the player from falling through the platform when falling down...
+        if self.player.vel.y >= 0:
+            hits = pg.sprite.spritecollide(self.player, self.all_platforms, False)
+            if hits:
+                self.player.pos.y = hits[0].rect.top
+                self.player.vel.y = 0
+                self.player.vel.x = hits[0].speed * 1.5
+
+        # this prevents the player from jumping up through a platform
+        elif self.player.vel.y <= 0:
+            hits = pg.sprite.spritecollide(self.player, self.all_platforms, False)
+            if hits:
+                self.player.acc.y = 2
+                self.player.vel.y = 0
+                print("ouch")
+                if self.player.rect.bottom >= hits[0].rect.top:
+                    self.player.rect.top = hits[0].rect.bottom
+        elif self.player.vel.y <= 0:
+            mhits = pg.sprite.spritecollide(self.player, self.all_mobs, False)
+            if mhits:
+                self.player.acc = 2
+                self.player.vel.y = 0
+                self.score += 1
+                if self.player.rect.bottom >= hits[0].rect.top + 1:
+                    self.player.rect.top = hits[0].rect.bottom
 
     def events(self):
         for event in pg.event.get():
