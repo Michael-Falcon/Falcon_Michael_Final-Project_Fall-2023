@@ -262,7 +262,7 @@ class Game:
 
     def new(self):
         self.background = pg.image.load(os.path.join(img_folder, 'Race-Track-PNG-Resize.png')).convert()
-        self.score = 0
+        self.score = 0 
         self.all_sprites = pg.sprite.Group()
         self.all_platforms = pg.sprite.Group()
         self.all_mobs = pg.sprite.Group()
@@ -298,7 +298,11 @@ class Game:
 
     def update(self):
         self.all_sprites.update()
-
+        mhits = pg.sprite.spritecollide(self.player, self.all_mobs, True)
+        if mhits:
+                self.player.acc = 2
+                self.player.vel.y = 0
+                self.score += 1 
         # this is what prevents the player from falling through the platform when falling down...
         if self.player.vel.y >= 0:
             hits = pg.sprite.spritecollide(self.player, self.all_platforms, False)
@@ -316,14 +320,11 @@ class Game:
                 print("ouch")
                 if self.player.rect.bottom >= hits[0].rect.top:
                     self.player.rect.top = hits[0].rect.bottom
-        elif self.player.vel.y <= 0:
-            mhits = pg.sprite.spritecollide(self.player, self.all_mobs, False)
-            if mhits:
-                self.player.acc = 2
-                self.player.vel.y = 0
-                self.score += 1
-                if self.player.rect.bottom >= hits[0].rect.top + 1:
-                    self.player.rect.top = hits[0].rect.bottom
+        #elif self.player.vel.y <= 0:
+            
+                
+                #if self.player.rect.bottom >= hits[0].rect.top + 1:
+                    #self.player.rect.top = hits[0].rect.bottom
 
     def events(self):
         for event in pg.event.get():

@@ -48,10 +48,10 @@ class Player(Sprite):
             self.vel.y = -PLAYER_JUMP
         
     def update(self):
-        # CHECKING FOR COLLISION WITH MOBS HERE>>>>>
-        mhits = pg.sprite.spritecollide(self, self.game.all_mobs, True)
-        if mhits: 
-            self.score = 1
+         #CHECKING FOR COLLISION WITH MOBS HERE>>>>>
+        #mhits = pg.sprite.spritecollide(self, self.game.all_mobs, True)
+        #if mhits: 
+            #self.score += 1
         self.acc = vec(0,PLAYER_GRAV)
         self.controls()
         # if friction - apply here
