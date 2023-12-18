@@ -21,26 +21,26 @@ class Player(Sprite):
         # self.image.fill(GREEN)
         # use an image for player sprite...
         self.game = game
-        self.image = pg.image.load(os.path.join(img_folder, 'mitsubishi2.png')).convert()
+        self.image = pg.image.load(os.path.join(img_folder, 'porsche .png')).convert()
         self.image.set_colorkey(BLACK)
         self.rect = self.image.get_rect()
         self.rect.center = (0, 0)
-        self.pos = vec(WIDTH/2, 450)
+        self.pos = vec(WIDTH/2, 800)
         self.vel = vec(0,0)
         self.acc = vec(1,2)
         self.score = 0
     def controls(self):
         keys = pg.key.get_pressed()
         if keys[pg.K_a]:
-            self.acc.x = -9
+            self.acc.x = -10
         if keys[pg.K_d]:
-            self.acc.x = 9
+            self.acc.x = 10
         if keys[pg.K_SPACE]:
             self.jump()
         if keys[pg.K_w]:
-            self.acc.y = -.5
+            self.acc.y = -.15
         if keys[pg.K_s]:
-            self.acc.y = 1
+            self.acc.y = .5
     def jump(self):
         hits = pg.sprite.spritecollide(self, self.game.all_platforms, False)
         if hits:
@@ -88,10 +88,6 @@ class Mob(Sprite):
         Sprite.__init__(self)
         self.image = pg.image.load(os.path.join(img_folder, 'purple-car.png')).convert()
         self.image.set_colorkey(BLACK)
-
-#self.image = pg.Surface((w, h))
-#self.image.fill(RED)
-
         self.rect = self.image.get_rect()
         self.rect.x = x
         self.rect.y = y

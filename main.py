@@ -261,12 +261,12 @@ class Game:
         self.running = True
 
     def new(self):
-        self.background = pg.image.load(os.path.join(img_folder, 'Race-Track-PNG-Resize.png')).convert()
         self.score = 0 
         self.all_sprites = pg.sprite.Group()
         self.all_platforms = pg.sprite.Group()
         self.all_mobs = pg.sprite.Group()
-
+        self.background = pg.image.load(os.path.join(img_folder, 'Road Png-Resize.png')).convert()
+        self.all_raindrops = pg.sprite.Group()
         self.player = Player(self)
         self.all_sprites.add(self.player)
 
@@ -275,16 +275,20 @@ class Game:
             self.all_sprites.add(plat)
             self.all_platforms.add(plat)
 
-        for m in range(0, 12):
+        for m in range(0, 25):
             m = Mob(randint(0, WIDTH), randint(0, HEIGHT - 150), 25, 25, "move")
             self.all_sprites.add(m)
             self.all_mobs.add(m)
+        for r in range(0, 15):
+            r = Rain(randint(0, WIDTH), randint(0, HEIGHT), 5, 40, "acid")
+            self.all_sprites.add(r)
+            self.all_raindrops.add(r)
 
         self.run()
 
     def run(self):
         self.playing = True
-        bg_scroll = -800
+        bg_scroll = -500
         scroll_speed = 6
 
         while self.playing:
@@ -294,13 +298,13 @@ class Game:
             self.draw(bg_scroll)
             bg_scroll += scroll_speed
             if bg_scroll > 50:
-                bg_scroll = -850
+                bg_scroll = -600
 
     def update(self):
         self.all_sprites.update()
         mhits = pg.sprite.spritecollide(self.player, self.all_mobs, True)
         if mhits:
-                self.player.acc = 2
+                self.player.acc = 1
                 self.player.vel.y = 0
                 self.score += 1 
         # this is what prevents the player from falling through the platform when falling down...
@@ -309,13 +313,13 @@ class Game:
             if hits:
                 self.player.pos.y = hits[0].rect.top
                 self.player.vel.y = 0
-                self.player.vel.x = hits[0].speed * 1.5
+                self.player.vel.x = hits[0].speed * 1
 
         # this prevents the player from jumping up through a platform
         elif self.player.vel.y <= 0:
             hits = pg.sprite.spritecollide(self.player, self.all_platforms, False)
             if hits:
-                self.player.acc.y = 2
+                self.player.acc.y = 1
                 self.player.vel.y = 0
                 print("ouch")
                 if self.player.rect.bottom >= hits[0].rect.top:
