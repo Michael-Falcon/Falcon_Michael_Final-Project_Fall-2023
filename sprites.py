@@ -29,6 +29,7 @@ class Player(Sprite):
         self.vel = vec(0,0)
         self.acc = vec(1,2)
         self.score = 0
+    #all the keys that allow me to contrl how fast car is goign foward, back, sideways
     def controls(self):
         keys = pg.key.get_pressed()
         if keys[pg.K_a]:
@@ -63,7 +64,7 @@ class Player(Sprite):
         self.rect.midbottom = self.pos
 
 # platforms
-
+#i left this class the same as before 
 class Platform(Sprite):
     def __init__(self, x, y, w, h, category):
         Sprite.__init__(self)
@@ -82,7 +83,8 @@ class Platform(Sprite):
             self.rect.x += self.speed
             if self.rect.x + self.rect.w > WIDTH or self.rect.x < 0:
                 self.speed = -self.speed
- #Mobs   
+ #Mobs 
+#i did the same thing with this class  
 class Mob(Sprite):
     def __init__(self, x, y, w, h, kind):
         Sprite.__init__(self)
@@ -102,6 +104,7 @@ class Mob(Sprite):
             if self.rect.x + self.rect.w > WIDTH or self.rect.x < 0:
                 self.speed = -self.speed
  #Acid Rain 
+#one of the things I changed from this class i made was that I disabled the rain droplets from moving left to right 
 class Rain(Sprite):
     def __init__(self, x, y, w, h, type):
         Sprite.__init__(self)
