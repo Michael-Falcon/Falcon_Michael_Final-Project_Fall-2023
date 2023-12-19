@@ -56,7 +56,7 @@ BLUE = (0, 0, 255)
 
 Ground = (0, HEIGHT - 40, WIDTH, 40, "normal")
 
-
+#platforms that are in teh game
 PLATFORM_LIST = [
                  (0, HEIGHT - 40, WIDTH + 200, 40, "normal"),
                  (WIDTH / 2 - 50, HEIGHT * 7 / 8, 100, 20,"normal"),
