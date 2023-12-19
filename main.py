@@ -275,12 +275,12 @@ class Game:
             self.all_sprites.add(plat)
             self.all_platforms.add(plat)
 
-        for m in range(0, 25):
+        for m in range(0, 30):
             m = Mob(randint(0, WIDTH), randint(0, HEIGHT - 150), 25, 25, "move")
             self.all_sprites.add(m)
             self.all_mobs.add(m)
-        for r in range(0, 15):
-            r = Rain(randint(0, WIDTH), randint(0, HEIGHT), 5, 40, "acid")
+        for r in range(0, 20):
+            r = Rain(randint(400, 1100), randint(0, HEIGHT), 5, 40, "acid")
             self.all_sprites.add(r)
             self.all_raindrops.add(r)
 
@@ -302,11 +302,18 @@ class Game:
 
     def update(self):
         self.all_sprites.update()
+        #makes the cars disappear
         mhits = pg.sprite.spritecollide(self.player, self.all_mobs, True)
         if mhits:
                 self.player.acc = 1
                 self.player.vel.y = 0
-                self.score += 1 
+                self.score += 2.5 
+        #makes the score drop if you hit an acid raindrop 
+        rhits = pg.sprite.spritecollide(self.player, self.all_raindrops, False)
+        if rhits:
+                self.player.acc = .5
+                self.player.vel.y = 0 
+                self.score -= .25
         # this is what prevents the player from falling through the platform when falling down...
         if self.player.vel.y >= 0:
             hits = pg.sprite.spritecollide(self.player, self.all_platforms, False)

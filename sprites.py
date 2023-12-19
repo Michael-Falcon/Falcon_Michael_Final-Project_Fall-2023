@@ -32,9 +32,9 @@ class Player(Sprite):
     def controls(self):
         keys = pg.key.get_pressed()
         if keys[pg.K_a]:
-            self.acc.x = -10
+            self.acc.x = -8
         if keys[pg.K_d]:
-            self.acc.x = 10
+            self.acc.x = 8
         if keys[pg.K_SPACE]:
             self.jump()
         if keys[pg.K_w]:
@@ -118,11 +118,11 @@ class Rain(Sprite):
     def update(self):
         if self.type == "acid":
             self.rect.y += self.speed
-            self.rect.x += self.speed / 3
+            #self.rect.x += self.speed / 3
             if self.rect.y + self.rect.h > HEIGHT or self.rect.y < 0:
                 self.speed = -self.speed
-            if self.rect.x + self.rect.w > WIDTH or self.rect.x < 0:
-                self.speed = -self.speed 
+            #if self.rect.x + self.rect.w > WIDTH or self.rect.x < 0:
+                #self.speed = -self.speed 
 
 
 #self.pos = vec(WIDTH/2, HEIGHT/2)
