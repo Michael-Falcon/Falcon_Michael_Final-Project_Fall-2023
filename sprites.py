@@ -104,7 +104,7 @@ class Mob(Sprite):
             if self.rect.x + self.rect.w > WIDTH or self.rect.x < 0:
                 self.speed = -self.speed
  #Acid Rain 
-#one of the things I changed from this class i made was that I disabled the rain droplets from moving left to right 
+#one of the things I changed from this class i made was that I disabled the rain droplets from moving left to right
 class Rain(Sprite):
     def __init__(self, x, y, w, h, type):
         Sprite.__init__(self)

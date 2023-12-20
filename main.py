@@ -1,5 +1,13 @@
 #This file was created by Michael Falcon 
 #Sources: chatgpt, (kids can code), 
+#All sources: OpenAI. 
+#“ChatGPT.” Chat.openai.com, OpenAI, 2023, chat.openai.com/.
+#“PyGame Flappy Bird Beginner Tutorial in Python - PART 1 | Creating a Scrolling Background.” Www.youtube.com, www.youtube.com/watch?v=GiUGVOqqCKg. Accessed 20 Dec. 2023.
+#clickclackcode. “Python-Car-Game/Car_game.py at Main · Clickclackcode/Python-Car-Game.” GitHub, github.com/clickclackcode/python-car-game/blob/main/car_game.py. Accessed 20 Dec. 2023.
+#randhir408. “Sourceofcargame/Game.py at Main · Randhir408/Sourceofcargame.” GitHub, github.com/randhir408/sourceofcargame/blob/main/game.py. Accessed 20 Dec. 2023.
+#techwithtim. “Pygame-Car-Racer/Tutorial4-Code/Main.py at Main · Techwithtim/Pygame-Car-Racer.” GitHub, github.com/techwithtim/Pygame-Car-Racer/blob/main/tutorial4-code/main.py. Accessed 20 Dec. 2023.
+#miguel and zeb(classmate )
+
 #Overview: explain what you want to create What is something you're passionate about or interested in?  How can you apply python and its many libraries towards that interest in your final project?
 
 #Include a main.py file with comments including project title and goals.
@@ -115,7 +123,7 @@ class Game:
         if mhits:
                 self.player.acc = 1
                 self.player.vel.y = 0
-                self.score += 2.5 
+                self.score += 1.5 
         #makes the score drop if you hit an acid raindrop 
         rhits = pg.sprite.spritecollide(self.player, self.all_raindrops, False)
         if rhits:
@@ -157,7 +165,7 @@ class Game:
         self.screen.blit(self.background, (0, -bg_scroll))
 
         self.all_sprites.draw(self.screen)
-        #adding the score that will show
+        #adding the score at the end
         self.draw_text("Score: " + str(self.score), 22, WHITE, WIDTH / 2, HEIGHT / 10)
 
         pg.display.flip()
